@@ -34,8 +34,12 @@ app.get('/', (req, res) => {
 
 app.post('/info' ,(req,res) => {
 
-    console.log(req.body.username);
-    console.log(req.body.pw);
+    req.body.forEach(element => {
+        console.log(element);
+        console.log('-----');
+    });
+    // console.log(req.body.username);
+    // console.log(req.body.pw);
 
     res.send('Post working');
 });
