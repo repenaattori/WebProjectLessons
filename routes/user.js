@@ -2,6 +2,9 @@ const router = require('express').Router();
 const multer = require('multer');
 const upload = multer({dest: 'upload/'});
 
+/**
+ * User root get mapping
+ */
 router.get('/', (req, res) => {
 
     const id = req.query.id;
@@ -12,7 +15,8 @@ router.get('/', (req, res) => {
     res.send('Reima Riihimäki');
 });
 
-//Supports urlencoded and multer
+
+//User root post mapping. Supports urlencoded and multer
 router.post('/', upload.none() ,(req,res) => {
 
     console.log(req.body.username);

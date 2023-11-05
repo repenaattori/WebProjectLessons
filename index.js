@@ -5,21 +5,24 @@ const cors = require('cors');
 
 const app = express();
 
+//Setting middleware
 app.use(express.urlencoded({extended: true}));
 app.use(express.json());
 app.use(cors());
 app.use(express.static('public'));
 
-//Routes
+//Setting routes
 app.use('/user', userRoute );
 
-
+//Start server
 const PORT = process.env.PORT || 3001;
-
 app.listen(PORT, function(){
     console.log('Server running on port ' + PORT);
 } );
 
+/**
+ * Root mapping.
+ */
 app.get('/', (req, res) => {
 
     const persons = [
@@ -31,7 +34,9 @@ app.get('/', (req, res) => {
     res.json(persons);
 });
 
-
+/**
+ * Post mapping test.
+ */
 app.post('/info' ,(req,res) => {
 
     req.body.forEach(element => {
