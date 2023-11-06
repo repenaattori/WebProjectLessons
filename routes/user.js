@@ -1,28 +1,40 @@
 const router = require('express').Router();
 const multer = require('multer');
 const upload = multer({dest: 'upload/'});
+const bcrypt = require('bcrypt');
+
+const {addUser, getUsers} = require('../postgre/user');
 
 /**
  * User root get mapping
  */
-router.get('/', (req, res) => {
+router.get('/', async (req, res) => {
 
-    const id = req.query.id;
-    const name = req.query.name;
-
-    console.log(id);
-    console.log(name);
-    res.send('Reima Riihimäki');
+     res.json(await getUsers());
+    
 });
 
 
 //User root post mapping. Supports urlencoded and multer
-router.post('/', upload.none() ,(req,res) => {
+router.post('/', upload.none() , async (req,res) => {
+    const fname = req.body.fname;
+    const lname = req.body.lname;
+    const uname = req.body.uname;
+    let pw = req.body.pw;
 
-    console.log(req.body.username);
-    console.log(req.body.pw);
+    pw = await bcrypt.hash(pw, 10);
 
-    res.send('Post working');
+    console.log(pw);
+
+    try {
+        await addUser(fname,lname,uname,pw);
+        res.end();
+    } catch (error) {
+        console.log(error);
+        res.json({error: error.message}).status(500);
+    }
+    
+
 });
 
 module.exports = router;
