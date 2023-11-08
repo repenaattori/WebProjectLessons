@@ -12,17 +12,14 @@ const persons = [
 
 function App() {
 
-  const [login, setLogin] = useState(false);
-
   return (
-    <DataExample/>
-    // <LoginContext.Provider value={{login, setLogin}}>
-    //   <h4>Arvo on {login.toString()}</h4>
-    //   <Login/>
-    //   <PersonList/>
-    // </LoginContext.Provider>
+    <div>
+      <h4>Otsikko</h4>
+      <Login/>
+    </div>
   );
 }
+
 
 
 function PersonList() {
